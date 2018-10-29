@@ -11,6 +11,7 @@ import android.view.View;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
+import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 
 import com.google.inject.Inject;
@@ -39,6 +40,7 @@ public abstract class BaseWebViewFindCoursesActivity extends BaseFragmentActivit
 
     private EdxWebView webView;
     private ProgressBar progressWheel;
+    private FrameLayout progressContainer;
     private String lastClickEnrollCourseId;
     private boolean lastClickEnrollEmailOptIn;
 
@@ -55,6 +57,7 @@ public abstract class BaseWebViewFindCoursesActivity extends BaseFragmentActivit
         super.setToolbarAsActionBar();
         webView = (EdxWebView) findViewById(R.id.webview);
         progressWheel = (ProgressBar) findViewById(R.id.loading_indicator);
+        progressContainer = (FrameLayout) findViewById(R.id.progress_container);
         errorNotification = new FullScreenErrorNotification(webView);
 
         webView.getSettings().setDomStorageEnabled(true);
@@ -128,12 +131,18 @@ public abstract class BaseWebViewFindCoursesActivity extends BaseFragmentActivit
         if (progressWheel != null) {
             progressWheel.setVisibility(View.VISIBLE);
         }
+        if (progressContainer != null) {
+            progressContainer.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
     public void hideLoadingProgress() {
         if (progressWheel != null) {
             progressWheel.setVisibility(View.GONE);
+        }
+        if (progressContainer != null) {
+            progressContainer.setVisibility(View.GONE);
         }
     }
 
